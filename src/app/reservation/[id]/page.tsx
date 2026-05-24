@@ -119,15 +119,7 @@ export default function ReservationPage({
 
   if (loading) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "var(--bg)",
-        }}
-      >
+      <div className="app-shell" style={{ display: "grid", placeItems: "center" }}>
         <div style={{ color: "var(--text-muted)", fontSize: 14 }}>
           Loading reservation...
         </div>
@@ -137,17 +129,7 @@ export default function ReservationPage({
 
   if (!reservation) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "var(--bg)",
-          gap: 16,
-        }}
-      >
+      <div className="app-shell" style={{ display: "grid", placeItems: "center", gap: 16 }}>
         <div style={{ fontSize: 48 }}>🔍</div>
         <p style={{ color: "var(--text)", fontSize: 18, fontWeight: 600 }}>
           Reservation not found
@@ -181,25 +163,10 @@ export default function ReservationPage({
   const totalPrice = reservation.product.price * reservation.quantity;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
+    <div className="app-shell">
       {/* Header */}
-      <header
-        style={{
-          borderBottom: "1px solid var(--border)",
-          background: "var(--surface)",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 700,
-            margin: "0 auto",
-            padding: "0 24px",
-            height: 64,
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-          }}
-        >
+      <header className="topbar">
+        <div className="topbar-inner" style={{ maxWidth: 700, minHeight: 64 }}>
           <button
             onClick={() => router.push("/")}
             style={{
@@ -243,13 +210,7 @@ export default function ReservationPage({
         </div>
       </header>
 
-      <main
-        style={{
-          maxWidth: 700,
-          margin: "0 auto",
-          padding: "40px 24px",
-        }}
-      >
+      <main className="page-container-narrow">
         {/* Status banner */}
         {isConfirmed && (
           <div
@@ -311,36 +272,14 @@ export default function ReservationPage({
         )}
 
         {/* Main card */}
-        <div
-          style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: 16,
-            overflow: "hidden",
-          }}
-        >
+        <div className="reservation-card">
           {/* Product info */}
-          <div
-            style={{
-              padding: 24,
-              borderBottom: "1px solid var(--border)",
-              display: "flex",
-              gap: 16,
-              alignItems: "flex-start",
-            }}
-          >
+          <div className="reservation-section reservation-product">
             {reservation.product.imageUrl && (
               <img
                 src={reservation.product.imageUrl}
                 alt={reservation.product.name}
-                style={{
-                  width: 72,
-                  height: 72,
-                  objectFit: "cover",
-                  borderRadius: 10,
-                  border: "1px solid var(--border)",
-                  flexShrink: 0,
-                }}
+                className="reservation-image"
               />
             )}
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -421,7 +360,7 @@ export default function ReservationPage({
           )}
 
           {/* Order summary */}
-          <div style={{ padding: 24, borderBottom: "1px solid var(--border)" }}>
+          <div className="reservation-section">
             <div
               style={{
                 fontSize: 11,
@@ -483,13 +422,7 @@ export default function ReservationPage({
 
           {/* Actions */}
           {isPending && (
-            <div
-              style={{
-                padding: 24,
-                display: "flex",
-                gap: 12,
-              }}
-            >
+            <div className="reservation-section reservation-actions">
               <button
                 onClick={handleCancel}
                 disabled={!!actionLoading}
@@ -541,7 +474,7 @@ export default function ReservationPage({
           )}
 
           {(isConfirmed || isReleased) && (
-            <div style={{ padding: 24 }}>
+            <div className="reservation-section">
               <button
                 onClick={() => router.push("/")}
                 style={{
@@ -564,18 +497,7 @@ export default function ReservationPage({
         </div>
 
         {/* Technical footnote */}
-        <div
-          style={{
-            marginTop: 20,
-            padding: "12px 16px",
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: 8,
-            fontSize: 11,
-            color: "var(--text-subtle)",
-            fontFamily: "DM Mono, monospace",
-          }}
-        >
+        <div className="reservation-footnote">
           Reservation ID: {reservation.id}
         </div>
       </main>

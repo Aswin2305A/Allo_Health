@@ -32,32 +32,12 @@ export default function HomePage() {
   }, [fetchProducts]);
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
+    <div className="app-shell">
       {/* Header */}
-      <header
-        style={{
-          background: "var(--surface)",
-          borderBottom: "1px solid var(--border)",
-          position: "sticky",
-          top: 0,
-          zIndex: 100,
-          backdropFilter: "blur(8px)",
-          boxShadow: "var(--shadow-sm)",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1280,
-            margin: "0 auto",
-            padding: "0 32px",
-            height: 72,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+      <header className="topbar">
+        <div className="topbar-inner">
           {/* Logo */}
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div className="topbar-brand">
             <div
               style={{
                 width: 40,
@@ -110,17 +90,8 @@ export default function HomePage() {
           </div>
 
           {/* Actions */}
-          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                fontSize: 13,
-                color: "var(--text-secondary)",
-                fontWeight: 500,
-              }}
-            >
+          <div className="topbar-actions">
+            <div className="topbar-status">
               <div
                 className="pulse-dot"
                 style={{
@@ -150,12 +121,12 @@ export default function HomePage() {
                 gap: 6,
               }}
               onMouseEnter={(e) => {
-                (e.target as HTMLButtonElement).style.borderColor = "var(--accent)";
-                (e.target as HTMLButtonElement).style.color = "var(--accent)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--accent)";
+                (e.currentTarget as HTMLButtonElement).style.color = "var(--accent)";
               }}
               onMouseLeave={(e) => {
-                (e.target as HTMLButtonElement).style.borderColor = "var(--border)";
-                (e.target as HTMLButtonElement).style.color = "var(--text-secondary)";
+                (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)";
+                (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)";
               }}
             >
               <svg
@@ -172,7 +143,7 @@ export default function HomePage() {
               </svg>
               Refresh
             </button>
-            
+
             {/* Profile */}
             <div
               style={{
@@ -217,18 +188,10 @@ export default function HomePage() {
       </header>
 
       {/* Main Content */}
-      <main style={{ maxWidth: 1280, margin: "0 auto", padding: "48px 32px" }}>
+      <main className="page-container">
         {/* Page Header */}
-        <div style={{ marginBottom: 40 }}>
-          <h1
-            style={{
-              fontSize: 36,
-              fontWeight: 800,
-              color: "var(--text)",
-              letterSpacing: "-0.03em",
-              marginBottom: 12,
-            }}
-          >
+        <div className="catalog-header">
+          <h1>
             Product Catalogue
           </h1>
           <p style={{ color: "var(--text-muted)", fontSize: 15, fontWeight: 500 }}>
@@ -267,13 +230,7 @@ export default function HomePage() {
 
         {/* Loading Skeletons */}
         {loading && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))",
-              gap: 24,
-            }}
-          >
+          <div className="catalog-skeleton-grid">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
@@ -282,7 +239,7 @@ export default function HomePage() {
                   border: "1px solid var(--border)",
                   borderRadius: 16,
                   padding: 24,
-                  height: 320,
+                  minHeight: 280,
                   boxShadow: "var(--shadow-sm)",
                 }}
               >
@@ -298,13 +255,7 @@ export default function HomePage() {
 
         {/* Product Grid */}
         {!loading && !error && products.length > 0 && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))",
-              gap: 24,
-            }}
-          >
+          <div className="catalog-grid">
             {products.map((product, i) => (
               <div
                 key={product.id}
@@ -319,15 +270,9 @@ export default function HomePage() {
 
         {/* Empty State */}
         {!loading && !error && products.length === 0 && (
-          <div
-            style={{
-              textAlign: "center",
-              padding: "100px 0",
-              color: "var(--text-muted)",
-            }}
-          >
-            <div style={{ fontSize: 64, marginBottom: 20 }}>📦</div>
-            <p style={{ fontSize: 18, fontWeight: 600, marginBottom: 8 }}>No products found</p>
+          <div className="catalog-empty">
+            <div className="catalog-empty-icon">📦</div>
+            <p className="catalog-empty-title">No products found</p>
             <p style={{ fontSize: 14, marginTop: 12 }}>
               Run{" "}
               <code

@@ -213,12 +213,13 @@ npm run lint           # Run ESLint
 
 The application is designed for Vercel deployment:
 
-1. Connect your repository to Vercel
-2. Add `DATABASE_URL` environment variable
-3. Add `CRON_SECRET` for cron endpoint protection
-4. Deploy
+1. Connect your repository to Vercel.
+2. Add the `DATABASE_URL` environment variable.
+3. Add `CRON_SECRET` if you want to protect manual calls to `/api/cron/cleanup`.
+4. Deploy.
 
-Vercel will automatically run the cron job defined in `vercel.json`.
+Vercel Cron will run `/api/cron/cleanup` every minute using the schedule in `vercel.json`.
+The cleanup route also accepts Vercel Cron requests directly through the `x-vercel-cron` header.
 
 ## Testing Concurrency
 

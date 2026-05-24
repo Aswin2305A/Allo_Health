@@ -78,17 +78,7 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
     <>
       {/* Product Card */}
       <div
-        style={{
-          background: "var(--surface)",
-          border: "1px solid var(--border)",
-          borderRadius: 16,
-          overflow: "hidden",
-          display: "flex",
-          flexDirection: "column",
-          transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-          boxShadow: "var(--shadow-sm)",
-          height: "100%",
-        }}
+        className="card-shell"
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-md)";
           (e.currentTarget as HTMLDivElement).style.transform = "translateY(-4px)";
@@ -104,7 +94,6 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
         {product.imageUrl && (
           <div
             style={{
-              height: 200,
               overflow: "hidden",
               background: "var(--bg-secondary)",
               position: "relative",
@@ -113,12 +102,7 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
             <img
               src={product.imageUrl}
               alt={product.name}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "center",
-              }}
+              className="card-media"
             />
             {totalAvailable === 0 && (
               <div
@@ -142,7 +126,7 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
           </div>
         )}
 
-        <div style={{ padding: 24, flex: 1, display: "flex", flexDirection: "column" }}>
+        <div className="card-body">
           {/* Product Info */}
           <div style={{ marginBottom: 16 }}>
             <h3
@@ -185,27 +169,11 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
           )}
 
           {/* Warehouse Stock */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              marginBottom: 20,
-              flex: 1,
-            }}
-          >
+          <div className="card-stock-list">
             {product.warehouses.map((w) => (
               <div
                 key={w.id}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  padding: "10px 12px",
-                  background: "var(--bg-secondary)",
-                  borderRadius: 10,
-                  border: "1px solid var(--border-light)",
-                }}
+                className="card-stock-item"
               >
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)" }}>
@@ -221,16 +189,7 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
           </div>
 
           {/* Price & Action */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 16,
-              paddingTop: 16,
-              borderTop: "1px solid var(--border-light)",
-            }}
-          >
+          <div className="card-actions">
             <div>
               <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4, fontWeight: 600 }}>
                 Price
@@ -286,44 +245,14 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
       {/* Reserve Modal */}
       {modalOpen && (
         <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.6)",
-            backdropFilter: "blur(8px)",
-            zIndex: 1000,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 24,
-          }}
+          className="modal-overlay"
           onClick={(e) => {
             if (e.target === e.currentTarget) setModalOpen(false);
           }}
         >
-          <div
-            className="fade-in"
-            style={{
-              background: "var(--surface)",
-              border: "1px solid var(--border)",
-              borderRadius: 20,
-              width: "100%",
-              maxWidth: 500,
-              overflow: "hidden",
-              boxShadow: "var(--shadow-xl)",
-            }}
-          >
+          <div className="fade-in modal-panel">
             {/* Modal Header */}
-            <div
-              style={{
-                padding: "24px 28px",
-                borderBottom: "1px solid var(--border)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                background: "var(--bg-secondary)",
-              }}
-            >
+            <div className="modal-header">
               <div>
                 <div
                   style={{
@@ -362,7 +291,7 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
               </button>
             </div>
 
-            <div style={{ padding: 28 }}>
+            <div className="modal-body">
               {/* Error */}
               {error && (
                 <div
@@ -404,21 +333,16 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
                 >
                   Select Warehouse
                 </label>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                <div className="warehouse-list">
                   {product.warehouses.map((w) => (
                     <label
                       key={w.id}
+                      className="warehouse-option"
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 14,
-                        padding: "14px 16px",
                         border: `2px solid ${selectedWarehouse?.id === w.id ? "var(--accent)" : "var(--border)"}`,
-                        borderRadius: 12,
                         cursor: w.available > 0 ? "pointer" : "not-allowed",
                         background: selectedWarehouse?.id === w.id ? "var(--accent-light)" : "var(--bg-secondary)",
                         opacity: w.available === 0 ? 0.5 : 1,
-                        transition: "all 0.2s",
                       }}
                     >
                       <input
@@ -464,7 +388,7 @@ export default function ProductCard({ product, onReserved }: ProductCardProps) {
                   >
                     Quantity
                   </label>
-                  <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                  <div className="quantity-row">
                     <button
                       onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                       style={{
