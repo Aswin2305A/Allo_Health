@@ -4,7 +4,7 @@ Multi-warehouse inventory reservation system with real-time stock management and
 
 ## Live Demo
 
-> Production deployment URL will be added here.
+https://allo-health-beige-eight.vercel.app
 
 ## Getting Started
 
