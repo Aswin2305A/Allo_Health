@@ -126,7 +126,7 @@ This ensures that when multiple requests compete for limited stock, only one suc
 
 Two mechanisms handle reservation expiry:
 
-1. **Scheduled cleanup**: Vercel Cron runs `/api/cron/cleanup` every minute
+1. **Scheduled cleanup**: Vercel Cron runs `/api/cron/cleanup` daily on Vercel Hobby plans
 2. **Lazy validation**: Confirm endpoint checks expiry before processing
 
 This dual approach ensures expired reservations are released promptly while preventing confirmation of stale reservations.
@@ -218,7 +218,7 @@ The application is designed for Vercel deployment:
 3. Add `CRON_SECRET` if you want to protect manual calls to `/api/cron/cleanup`.
 4. Deploy.
 
-Vercel Cron will run `/api/cron/cleanup` every minute using the schedule in `vercel.json`.
+Vercel Cron will run `/api/cron/cleanup` using the schedule in `vercel.json`.
 The cleanup route also accepts Vercel Cron requests directly through the `x-vercel-cron` header.
 
 ## Testing Concurrency
