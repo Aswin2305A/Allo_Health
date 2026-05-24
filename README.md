@@ -236,7 +236,3 @@ curl -X POST http://localhost:3000/api/reservations \
 ```
 
 Expected: One request succeeds (201), the other fails (409).
-
-## License
-
-MIT
